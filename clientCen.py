@@ -25,17 +25,15 @@ def selectAssets():
     print('| Шаг 1. Выбор asset. Необходимо выбрать нужный ассет из меню ниже. |\n')
     toSelectAssetsDict = listAssetsDir(assetsPath)
 
-    selectedAssetNum = input(": ")
-    print(selectedAssetNum)
     correct = False
     while not correct:
+        selectedAssetNum = input(": ")
         try:
             print(toSelectAssetsDict[int(selectedAssetNum)])
             correct = True
         except KeyError:
             print('| Неверный номер меню, повторите ввод |')
 
-    print('Вышли')
 
 if __name__ == '__main__':
     print('|  GreatRay client generator 0.1 |')
