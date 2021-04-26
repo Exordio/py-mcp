@@ -18,20 +18,46 @@ constants = {
 }
 
 
-def request(url, json = False, content = False):
+def request(url, json=False, content=False):
     if json:
         return requests.get(url).json()
     if content:
         return requests.get(url).content
 
 
-def download(url, dest, size, visibleName):
-    pass
-
-
 
 def getVersionManifest():
     return request(constants['api']['versionsInfo'], json=True)
+
+
+def getClient(vd):
+    print(f'''| Загружаем {vd['downloads']['client']['url'].split('/')[-1]} |''')
+    with open(f'''{constants['package']['outputPath']}/{vd['downloads']['client']['url'].split('/')[-1]}''',
+              'wb') as vsd:
+        vsd.write(request(vd['downloads']['client']['url'], content=True))
+
+
+def selectVersion(vn):
+    print(vn)
+    print('| Введите номер версии для сборки клиента |')
+    finded = False
+    while not finded:
+        versionSelect = input(' : ')
+        for i in versionsNumbs:
+            if i == versionSelect:
+                print('| Версия найдена |')
+                finded = True
+                break
+        if not finded:
+            print('Версия не найдена, повторите ввод.')
+
+    for i in versions:
+        if i['id'] == versionSelect:
+            return i
+
+
+def getVersionData(commonVersionData):
+    return request(commonVersionData['url'], json=True)
 
 
 if __name__ == '__main__':
@@ -54,39 +80,8 @@ if __name__ == '__main__':
         if i['type'] == 'release':
             versions.append(i)
             versionsNumbs.append(i['id'])
-    print(versionsNumbs)
-    print('| Введите номер версии для сборки клиента |')
-
-    finded = False
-    while not finded:
-        versionSelect = input(' : ')
-        for i in versionsNumbs:
-            if i == versionSelect:
-                print('Версия найдена')
-                finded = True
-                break
-        if not finded:
-            print('Версия не найдена, повторите ввод.')
-
-    for i in versions:
-        if i['id'] == versionSelect:
-            versionData = i
 
 
+    versionData = getVersionData(selectVersion(versionsNumbs))
 
-    versionData = request(versionData['url'], json=True)
-    print(versionData['downloads']['client']['url'].split('/')[-1])
-
-    with open(f'''{constants['package']['outputPath']}/{versionData['downloads']['client']['url'].split('/')[-1]}''', 'wb') as vsd:
-        vsd.write(request(versionData['downloads']['client']['url'], content=True))
-
-
-
-
-
-
-
-
-
-
-
+    getClient(versionData)
