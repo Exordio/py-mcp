@@ -17,6 +17,8 @@ constants = {
     },
 }
 
+platform = 'windows'
+
 
 def request(url, json=False, content=False):
     if json:
@@ -25,16 +27,17 @@ def request(url, json=False, content=False):
         return requests.get(url).content
 
 
-
 def getVersionManifest():
     return request(constants['api']['versionsInfo'], json=True)
 
 
 def getClient(vd):
-    print(f'''| Загружаем {vd['downloads']['client']['url'].split('/')[-1]} |''')
+    print(f'''| {datetime.now().time()} Загружаем {vd['downloads']['client']['url'].split('/')[-1]} |''')
     with open(f'''{constants['package']['outputPath']}/{vd['downloads']['client']['url'].split('/')[-1]}''',
               'wb') as vsd:
         vsd.write(request(vd['downloads']['client']['url'], content=True))
+
+    print(f'''| {datetime.now().time()} Загружен {vd['downloads']['client']['url'].split('/')[-1]} |''')
 
 
 def selectVersion(vn):
@@ -59,6 +62,23 @@ def selectVersion(vn):
 def getVersionData(commonVersionData):
     return request(commonVersionData['url'], json=True)
 
+def getLibraries(vd):
+    librariesByVersionInfo = []
+    for lib in vd['libraries']:
+        if 'natives' in lib:
+            continue
+        if not 'rules' in lib:
+            librariesByVersionInfo.append(lib['downloads']['artifact'])
+            continue
+
+        for rule in lib['rules']:
+            print(rule)
+            print(lib)
+            # if rule['action'] == 'allow' and rule['os']['name'] == platform:
+                # librariesByVersionInfo.append(lib['downloads']['artifact'])
+
+    print(librariesByVersionInfo)
+
 
 if __name__ == '__main__':
     print('|  GreatRay client generator 0.1  |\n')
@@ -82,6 +102,21 @@ if __name__ == '__main__':
             versionsNumbs.append(i['id'])
 
 
+    # sv = selectVersion(versionsNumbs)
+
     versionData = getVersionData(selectVersion(versionsNumbs))
 
+    print(versionData['libraries'])
+
+    # Получаем клиент
     getClient(versionData)
+
+    print(f'| {datetime.now().time()} Создаем папку для библеотек |')
+    try:
+        os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''')
+    except FileExistsError:
+        print(f'| {datetime.now().time()} Папка уже создана |')
+
+    getLibraries(versionData)
+
+
