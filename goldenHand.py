@@ -1,6 +1,8 @@
 import requests
 import os
 
+from datetime import datetime
+
 constants = {
     'api': {
         'versionsInfo': 'https://launchermeta.mojang.com/mc/game/version_manifest.json',
@@ -31,12 +33,20 @@ def download(url, dest, size, visibleName):
 def getVersionManifest():
     return request(constants['api']['versionsInfo'], json=True)
 
-if __name__ == '__main__':
-    print('|  GreatRay client generator 0.1 |')
-    print('| Предварительно создаём новую папку для генерации клиента |')
 
+if __name__ == '__main__':
+    print('|  GreatRay client generator 0.1  |\n')
+    print(f'| {datetime.now().time()} Предварительно создаём новую папку для генерации клиента |')
+
+    try:
+        os.mkdir(constants['package']['outputPath'])
+    except FileExistsError:
+        print(f'| {datetime.now().time()} Папка уже создана |')
+
+    print(f'| {datetime.now().time()} Получаем манифест версий |')
     versionsInfo = getVersionManifest()
 
+    print(f'| {datetime.now().time()} Манифест получен |\n')
     versions = []
     versionsNumbs = []
 
@@ -44,8 +54,8 @@ if __name__ == '__main__':
         if i['type'] == 'release':
             versions.append(i)
             versionsNumbs.append(i['id'])
-    print(versions)
     print(versionsNumbs)
+    print('| Введите номер версии для сборки клиента |')
 
     finded = False
     while not finded:
@@ -62,10 +72,7 @@ if __name__ == '__main__':
         if i['id'] == versionSelect:
             versionData = i
 
-    try:
-        os.mkdir(constants['package']['outputPath'])
-    except FileExistsError:
-        print('| Папка уже создана |')
+
 
     versionData = request(versionData['url'], json=True)
     print(versionData['downloads']['client']['url'].split('/')[-1])
