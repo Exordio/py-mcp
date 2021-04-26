@@ -22,7 +22,6 @@ constants = {
 
 platform = 'windows'
 
-
 def request(url, json=False, content=False):
     if json:
         return requests.get(url).json()
@@ -67,6 +66,7 @@ def selectVersion(vn):
 def getVersionData(commonVersionData):
     return request(commonVersionData['url'], json=True)
 
+
 def getLibraries(vd):
     librariesByVersionInfo = []
     print(f'| {datetime.now().time()} Формирование списка загрузки библиотек |')
@@ -82,7 +82,6 @@ def getLibraries(vd):
                 if 'os' in rule:
                     if rule['os']['name'] != 'osx':
                         librariesByVersionInfo.append(lib['downloads']['artifact'])
-
 
     print(librariesByVersionInfo)
     print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
@@ -123,15 +122,42 @@ def getNatives(vd):
     print(f'\n| {datetime.now().time()} Распаковка нативов завершена |\n')
 
 
-if __name__ == '__main__':
-    print('|  GreatRay client generator 0.1  |\n')
-    print(f'| {datetime.now().time()} Предварительно создаём новую папку для генерации клиента |')
-
+def createClientFolders(vd):
+    # Создаём папку для вывода скрипта
     try:
         os.mkdir(constants['package']['outputPath'])
     except FileExistsError:
-        print(f'| {datetime.now().time()} Папка уже создана |')
+        pass
 
+    # Создание папки для библиотек
+    try:
+        os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''')
+    except FileExistsError:
+        pass
+
+    # Создание папок для нативов.
+    try:
+        os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
+    except FileExistsError:
+        pass
+
+    # Создаем папки для ассетов
+    try:
+        os.makedirs(
+            f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes''')
+    except FileExistsError:
+        pass
+    try:
+        os.makedirs(
+            f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/objects''')
+    except FileExistsError:
+        pass
+
+
+
+if __name__ == '__main__':
+    print('|  GreatRay client generator 0.1  |\n')
+    print(f'| {datetime.now().time()} Предварительно создаём новую папку для генерации клиента |')
     print(f'| {datetime.now().time()} Получаем манифест версий |')
     versionsInfo = getVersionManifest()
 
@@ -145,26 +171,15 @@ if __name__ == '__main__':
             versionsNumbs.append(i['id'])
 
     versionData = getVersionData(selectVersion(versionsNumbs))
-    # Получаем клиент
+
+    createClientFolders(versionData)
+
     getClient(versionData)
-
-    print(f'\n| {datetime.now().time()} Создаем папку для библиотек |')
-    try:
-        os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''')
-    except FileExistsError:
-        print(f'| {datetime.now().time()} Папка уже создана |\n')
-
     getLibraries(versionData)
-
-    print(f'\n| {datetime.now().time()} Создаем папку для нативов |')
-    try:
-        os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
-    except FileExistsError:
-        print(f'| {datetime.now().time()} Папка уже создана |\n')
-
-
-
     getNatives(versionData)
+
+
+
 
 
 
