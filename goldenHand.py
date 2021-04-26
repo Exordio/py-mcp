@@ -31,13 +31,15 @@ def getVersionManifest():
     return request(constants['api']['versionsInfo'], json=True)
 
 
-def getClient(vd):
-    print(f'''| {datetime.now().time()} Загружаем {vd['downloads']['client']['url'].split('/')[-1]} |''')
-    with open(f'''{constants['package']['outputPath']}/{vd['downloads']['client']['url'].split('/')[-1]}''',
-              'wb') as vsd:
-        vsd.write(request(vd['downloads']['client']['url'], content=True))
+def downloadFile(url, filename, dist, count=0):
+    with open(f'''{dist}/{filename}''', 'wb') as file:
+        file.write(request(url, content=True))
 
-    print(f'''| {datetime.now().time()} Загружен {vd['downloads']['client']['url'].split('/')[-1]} |''')
+    print(f'''| Загружен {filename} : Осталось {count} файлов |''')
+
+
+def getClient(vd):
+    downloadFile(vd['downloads']['client']['url'], vd['downloads']['client']['url'].split('/')[-1], constants['package']['outputPath'])
 
 
 def selectVersion(vn):
@@ -52,7 +54,7 @@ def selectVersion(vn):
                 finded = True
                 break
         if not finded:
-            print('Версия не найдена, повторите ввод.')
+            print('| Версия не найдена, повторите ввод. |')
 
     for i in versions:
         if i['id'] == versionSelect:
@@ -72,12 +74,20 @@ def getLibraries(vd):
             continue
 
         for rule in lib['rules']:
-            print(rule)
-            print(lib)
-            # if rule['action'] == 'allow' and rule['os']['name'] == platform:
-                # librariesByVersionInfo.append(lib['downloads']['artifact'])
+            if rule['action'] == 'allow':
+                if 'os' in rule:
+                    if rule['os']['name'] != 'osx':
+                        librariesByVersionInfo.append(lib['downloads']['artifact'])
 
+    print(f'| {datetime.now().time()} Формирование списка закачки библиотек |')
     print(librariesByVersionInfo)
+    print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
+
+    LBVIDownloadCounter = len(librariesByVersionInfo)-1
+
+    for lib in librariesByVersionInfo:
+        downloadFile(lib['url'], lib['url'].split('/')[-1], f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''', LBVIDownloadCounter)
+        LBVIDownloadCounter -= 1
 
 
 if __name__ == '__main__':
@@ -102,21 +112,18 @@ if __name__ == '__main__':
             versionsNumbs.append(i['id'])
 
 
-    # sv = selectVersion(versionsNumbs)
-
     versionData = getVersionData(selectVersion(versionsNumbs))
-
-    print(versionData['libraries'])
-
     # Получаем клиент
     getClient(versionData)
 
-    print(f'| {datetime.now().time()} Создаем папку для библеотек |')
+    print(f'\n| {datetime.now().time()} Создаем папку для библиотек |')
     try:
         os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''')
     except FileExistsError:
-        print(f'| {datetime.now().time()} Папка уже создана |')
+        print(f'| {datetime.now().time()} Папка уже создана |\n')
 
     getLibraries(versionData)
+
+
 
 
