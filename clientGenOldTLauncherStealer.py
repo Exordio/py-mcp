@@ -80,7 +80,7 @@ def copyAssetIndexesFile(sa):
     shutil.copy(originalAssetIndexPath, targetAssetIndexPath)
 
 
-def findNCopyAsset(assetIndex, sa):
+def findNCopyAssets(assetIndex, sa):
     print('\n')
     for i in assetIndex['objects']:
         createAssetObjectSubFolder(assetIndex['objects'][i]['hash'][0:2], sa)
@@ -101,8 +101,6 @@ if __name__ == '__main__':
 
     selectedAsset = selectAssets()
     assetsJsonObj = readJson(assetsIndexesPath + selectedAsset)
-
     createAssetFsStructure(selectedAsset)
-
-    findNCopyAsset(assetsJsonObj, selectedAsset)
+    findNCopyAssets(assetsJsonObj, selectedAsset)
 
