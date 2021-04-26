@@ -1,8 +1,10 @@
 import requests
+import shutil
 import os
 
 from datetime import datetime
 from zipfile import ZipFile
+
 
 constants = {
     'api': {
@@ -115,6 +117,9 @@ def getNatives(vd):
         with ZipFile(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''', 'r') as zipObj:
             zipObj.extractall(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
 
+        os.remove(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''')
+
+    shutil.rmtree(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/META-INF''')
     print(f'\n| {datetime.now().time()} Распаковка нативов завершена |\n')
 
 
