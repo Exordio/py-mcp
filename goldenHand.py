@@ -83,11 +83,27 @@ def getLibraries(vd):
     print(librariesByVersionInfo)
     print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
 
-    LBVIDownloadCounter = len(librariesByVersionInfo)-1
+    LBVIDownloadCounter = len(librariesByVersionInfo) - 1
 
     for lib in librariesByVersionInfo:
         downloadFile(lib['url'], lib['url'].split('/')[-1], f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''', LBVIDownloadCounter)
         LBVIDownloadCounter -= 1
+
+
+def getNatives(vd):
+    nativesByVersionInfo = []
+    for lib in vd['libraries']:
+        if 'natives' in lib:
+            if platform in lib['natives']:
+                nativesByVersionInfo.append(lib['downloads']['classifiers'][lib['natives'][platform]])
+
+    print(nativesByVersionInfo)
+
+    NBVIDownloadCounter = len(nativesByVersionInfo) - 1
+
+    for native in nativesByVersionInfo:
+
+
 
 
 if __name__ == '__main__':
@@ -111,7 +127,6 @@ if __name__ == '__main__':
             versions.append(i)
             versionsNumbs.append(i['id'])
 
-
     versionData = getVersionData(selectVersion(versionsNumbs))
     # Получаем клиент
     getClient(versionData)
@@ -124,6 +139,15 @@ if __name__ == '__main__':
 
     getLibraries(versionData)
 
+    print(f'\n| {datetime.now().time()} Создаем папку для нативов |')
+    try:
+        os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
+    except FileExistsError:
+        print(f'| {datetime.now().time()} Папка уже создана |\n')
+
+
+
+    getNatives(versionData)
 
 
 
