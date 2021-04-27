@@ -45,16 +45,18 @@ def getAssets(vd):
         return responses
 
     assetsResponse = request(vd['assetIndex']['url'], content=True)
+    print(assetsResponse)
     with open(f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes/{vd['assetIndex']['id']}.json''', 'wb') as file:
         file.write(assetsResponse)
 
     print(assetsResponse)
     # print((assetsResponse.decode('utf-8'))['objects'])
-    try:
-        assets = ast.literal_eval(assetsResponse.decode('utf-8'))['objects']
-    except ValueError:
-        assets = json.loads(assetsResponse.decode('utf-8'))['objects']
+    # try:
+    assets = ast.literal_eval(assetsResponse.decode('utf-8'))['objects']
+    # except ValueError:
+        # assets = json.loads(assetsResponse.decode('utf-8'))['objects']
     assetDownloadLinks = {}
+    print(assets)
 
     print(assets)
     for asset in assets:

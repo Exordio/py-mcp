@@ -9,14 +9,15 @@ separator = ';' if platform == 'windows' else ':'
 
 
 def createAutorunScript(versionIndex, assetIndex, versionType):
-    with ZipFile(f'''output/client.jar''', 'r') as zipObj:
-        zipObj.extractall(f'''temp''')
 
-    with open('temp/META-INF/MANIFEST.MF', 'r') as mainClassManifest:
-        for i in mainClassManifest.readlines():
-            if i.startswith('Main-Class:'):
-                mainClassName = i.strip().split(' ')[-1]
-    shutil.rmtree('temp')
+    # with ZipFile(f'''output/client.jar''', 'r') as zipObj:
+    #     zipObj.extractall(f'''temp''')
+    #
+    # with open('temp/META-INF/MANIFEST.MF', 'r') as mainClassManifest:
+    #     for i in mainClassManifest.readlines():
+    #         if i.startswith('Main-Class:'):
+    #             mainClassName = i.strip().split(' ')[-1]
+    # shutil.rmtree('temp')
 
     print(f'|\n {datetime.now().time()} Создаем скрипт запуска |')
     autoRun = '''import os
@@ -31,7 +32,8 @@ for i in range(len(filenames)):
     '''
     autoRun += f'''classPathFiles = '{separator}'.join(filenames)\n'''
     autoRun += f'''arguments.append(f\'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
-    autoRun += f'''arguments.append(f'{mainClassName}')
+    # autoRun += f'''arguments.append(f'{mainClassName}')
+    autoRun += f'''arguments.append('net.minecraft.client.main.Main')
 arguments.append('--username Username')
 arguments.append('--gameDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets{versionIndex}') + '"')
