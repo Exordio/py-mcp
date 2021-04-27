@@ -14,9 +14,9 @@ _, _, filenames = next(os.walk('output1/libraries'))
 for i in range(len(filenames)):
     filenames[i] = f'output1/libraries/{filenames[i]}'
 
-classSex = ';'.join(filenames)
+classPathFiles = ';'.join(filenames)
 
-arguments.append(f'-cp output1/client.jar;{classSex}')
+arguments.append(f'-cp output1/client.jar;{classPathFiles}')
 arguments.append(f'net.minecraft.client.main.Main')
 
 arguments.append('--username Exord')
