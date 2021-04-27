@@ -30,9 +30,10 @@ arguments.append('--accessToken 0')
 arguments.append('--userType --mojang')
 arguments.append('--versionType --{versionType}')
 arguments.append('--version {versionIndex}')
-launchStr = f\'\'\' \'\'\'.join(arguments)
 '''
-    autoRun += '''print(launchStr)
+    autoRun += '''arguments.append('--userProperties {}')
+launchStr = f\'\'\' \'\'\'.join(arguments)
+print(launchStr)
 launch = os.system(launchStr)
 print(f'{launch}')
 
