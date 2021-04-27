@@ -12,19 +12,21 @@ from datetime import datetime
 if __name__ == '__main__':
     print('|  GreatRay client generator 0.1  |\n')
 
-    print(f'| {datetime.now().time()} Получаем манифест версий |')
+    # Получаем манифест всех версий minecraft
     versionsInfo = getVersionManifest()
-    print(f'| {datetime.now().time()} Манифест получен |\n')
-
+    # Выбираем тип выпуска minecraft
     versions, versionsNumbs = selectVersionType(versionsInfo)
-
+    # Выбираем номер версии, и получаем versionData
     versionData = getVersionData(selectVersion(versions, versionsNumbs))
-
+    # Создание всех нужных директорий и поддиректорий
     createClientFolders(versionData)
-
+    # Загрузка клиента
     getClient(versionData)
+    # Загрузка библиотек
     getLibraries(versionData)
+    # Загрузка нативов
     getNatives(versionData)
+    # Загрузка ассетов
     getAssets(versionData)
 
     print(f'| {datetime.now().time()} Сборка клиента завершена! |')
