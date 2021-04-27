@@ -45,7 +45,7 @@ def getAssets(vd):
         return responses
 
     assetsResponse = request(vd['assetIndex']['url'], content=True)
-    with open(f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes/{vd['assetIndex']['id']}.json''', 'wb') as file:
+    with open(f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}/indexes/{vd['assetIndex']['id']}.json''', 'wb') as file:
         file.write(assetsResponse)
 
     # print(assetsResponse)
@@ -57,16 +57,26 @@ def getAssets(vd):
     assetDownloadLinks = {}
 
     print(assets)
+
+    very_important = 'READ_ME_I_AM_VERY_IMPORTANT' in assets
+
     for asset in assets:
         assetHash = assets[asset]['hash']
         assetHashSlice = assetHash[0:2]
-        assetDir = f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/objects/{assetHashSlice}'''
+        assetFileSave = assetHash
+        assetDir = f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}/objects/{assetHashSlice}'''
+        if very_important:
+            dirname = os.path.dirname(asset)
+            if len(dirname) > 0:
+                dirname = f'/{dirname}'
+            assetDir = f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{dirname}'''
+            assetFileSave = os.path.basename(asset)
         assetDownloadUrl = f'''{constants['api']['assetsDownloadBaseUrl']}/{assetHashSlice}/{assetHash}'''
 
         if not os.path.exists(assetDir):
-            os.mkdir(assetDir)
+            os.makedirs(assetDir, exist_ok=True)
 
-        assetDownloadLinks[f'''{assetDir}/{assetHash}'''] = assetDownloadUrl
+        assetDownloadLinks[f'''{assetDir}/{assetFileSave}'''] = assetDownloadUrl
 
     asyncio.run(run(assetDownloadLinks))
 
