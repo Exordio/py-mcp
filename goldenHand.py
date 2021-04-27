@@ -3,6 +3,7 @@ from functions.getters.getAssets import getAssets
 from functions.getters.getVersionData import getVersionData
 from functions.getters.getVersionManifest import getVersionManifest
 from functions.getters.getClient import getClient
+from functions.getters.getServer import getServer
 from functions.getters.getLibraries import getLibraries
 from functions.getters.getNatives import getNatives
 from functions.selectors.selectVersion import selectVersion
@@ -22,6 +23,8 @@ if __name__ == '__main__':
     createClientFolders(versionData)
     # Загрузка клиента
     getClient(versionData)
+    # Загрузка сервера
+    getServer(versionData)
     # Загрузка библиотек
     getLibraries(versionData)
     # Загрузка нативов
@@ -29,6 +32,6 @@ if __name__ == '__main__':
     # Загрузка ассетов
     getAssets(versionData)
 
-    print(f'| {datetime.now().time()} Сборка клиента завершена! |')
+    print(f'\n| {datetime.now().time()} Сборка клиента завершена! |')
 
     # TODO сделать автоматическую генерацию скрипта запуска
