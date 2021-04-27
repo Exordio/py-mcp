@@ -11,7 +11,7 @@ from functions.selectors.selectVersionType import selectVersionType
 from datetime import datetime
 
 if __name__ == '__main__':
-    print('|  GreatRay client generator 0.1  |\n')
+    print('|  Exord minecraft client generator 0.1  |\n')
 
     # Получаем манифест всех версий minecraft
     versionsInfo = getVersionManifest()
