@@ -1,5 +1,8 @@
 import requests
+import asyncio
+import aiohttp
 import shutil
+import ast
 import os
 
 from datetime import datetime
@@ -110,7 +113,7 @@ def getNatives(vd):
         downloadFile(native['url'], native['url'].split('/')[-1], f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''', NBVIDownloadCounter)
         NBVIDownloadCounter -= 1
 
-    print(f'| {datetime.now().time()} Начинаем распаковку нативов |\n')
+    print(f'\n| {datetime.now().time()} Начинаем распаковку нативов |\n')
     for native in nativesByVersionInfo:
         print(f'''| {datetime.now().time()} Распаковка {native['url'].split('/')[-1]} |''')
         with ZipFile(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''', 'r') as zipObj:
@@ -121,6 +124,66 @@ def getNatives(vd):
     shutil.rmtree(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/META-INF''')
     print(f'\n| {datetime.now().time()} Распаковка нативов завершена |\n')
 
+
+def getAssets(vd):
+
+    print(f'\n| {datetime.now().time()} Начинаем загрузку ассетов |\n')
+    async def fetch(url, session, path):
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:64.0) Gecko/20100101 Firefox/64.0'}
+        try:
+            async with session.get(
+                    url, headers=headers,
+                    ssl=False,
+                    timeout=aiohttp.ClientTimeout(
+                        total=None,
+                        sock_connect=10,
+                        sock_read=10
+                    )
+            ) as response:
+                content = await response.read()
+                # print(content)
+                print(path)
+                with open(path, 'wb') as file:
+                    file.write(content)
+
+                return (url, 'OK', content)
+        except Exception as e:
+            print(e)
+            return (url, 'ERROR', str(e))
+
+    async def run(url_list):
+        tasks = []
+        async with aiohttp.ClientSession() as session:
+            for url in url_list:
+                task = asyncio.ensure_future(fetch(url_list[url], session, url))
+                tasks.append(task)
+            responses = asyncio.gather(*tasks)
+            await responses
+        return responses
+
+    assetsResponse = request(vd['assetIndex']['url'], content=True)
+    with open(f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes/{vd['assetIndex']['id']}.json''', 'wb') as file:
+        file.write(assetsResponse)
+
+    assets = ast.literal_eval(assetsResponse.decode('utf-8'))['objects']
+
+    assetDownloadLinks = {}
+
+    print(assets)
+    for asset in assets:
+        assetHash = assets[asset]['hash']
+        assetHashSlice = assetHash[0:2]
+        assetDir = f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/objects/{assetHashSlice}'''
+        assetDownloadUrl = f'''{constants['api']['assetsDownloadBaseUrl']}/{assetHashSlice}/{assetHash}'''
+
+        if not os.path.exists(assetDir):
+            os.mkdir(assetDir)
+
+        assetDownloadLinks[f'''{assetDir}/{assetHash}'''] = assetDownloadUrl
+
+    asyncio.run(run(assetDownloadLinks))
+
+    print('\n| Загрузка ассетов завершена. |')
 
 def createClientFolders(vd):
     # Создаём папку для вывода скрипта
@@ -154,13 +217,10 @@ def createClientFolders(vd):
         pass
 
 
-
 if __name__ == '__main__':
     print('|  GreatRay client generator 0.1  |\n')
-    print(f'| {datetime.now().time()} Предварительно создаём новую папку для генерации клиента |')
     print(f'| {datetime.now().time()} Получаем манифест версий |')
     versionsInfo = getVersionManifest()
-
     print(f'| {datetime.now().time()} Манифест получен |\n')
     versions = []
     versionsNumbs = []
@@ -172,11 +232,15 @@ if __name__ == '__main__':
 
     versionData = getVersionData(selectVersion(versionsNumbs))
 
-    createClientFolders(versionData)
+    print(versionData)
 
-    getClient(versionData)
-    getLibraries(versionData)
-    getNatives(versionData)
+    # createClientFolders(versionData)
+
+    # getClient(versionData)
+    # getLibraries(versionData)
+    # getNatives(versionData)
+    # getAssets(versionData)
+
 
 
 
