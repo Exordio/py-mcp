@@ -3,3 +3,6 @@ venv
 1.16.json
 version_manifest_v2.json
 output
+logs
+.idea
+test.json
