@@ -1,11 +1,11 @@
 from functions.fs.createClientFolders import createClientFolders
 from functions.getters.getAssets import getAssets
 from functions.getters.getVersionData import getVersionData
-from functions.selectors.selectVersion import selectVersion
 from functions.getters.getVersionManifest import getVersionManifest
 from functions.getters.getClient import getClient
 from functions.getters.getLibraries import getLibraries
 from functions.getters.getNatives import getNatives
+from functions.selectors.selectVersion import selectVersion
 from functions.selectors.selectVersionType import selectVersionType
 from datetime import datetime
 
