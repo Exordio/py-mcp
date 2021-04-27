@@ -3,7 +3,7 @@ import asyncio
 import ast
 import os
 
-from functions.request import request
+from functions.network.request import request
 from config.config import constants
 from datetime import datetime
 

@@ -4,7 +4,7 @@ import os
 from datetime import datetime
 from zipfile import ZipFile
 
-from functions.downloadFile import downloadFile
+from functions.network.downloadFile import downloadFile
 from config.config import constants, platform
 
 

@@ -1,4 +1,4 @@
-from functions.downloadFile import downloadFile
+from functions.network.downloadFile import downloadFile
 from config.config import constants
 
 

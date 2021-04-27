@@ -1,4 +1,4 @@
-from functions.request import request
+from functions.network.request import request
 from config.config import constants
 
 
