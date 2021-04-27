@@ -232,14 +232,14 @@ if __name__ == '__main__':
 
     versionData = getVersionData(selectVersion(versionsNumbs))
 
-    print(versionData)
+    # print(versionData)
 
-    # createClientFolders(versionData)
+    createClientFolders(versionData)
 
-    # getClient(versionData)
-    # getLibraries(versionData)
-    # getNatives(versionData)
-    # getAssets(versionData)
+    getClient(versionData)
+    getLibraries(versionData)
+    getNatives(versionData)
+    getAssets(versionData)
 
 
 
