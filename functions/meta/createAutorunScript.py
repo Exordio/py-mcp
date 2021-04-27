@@ -37,6 +37,7 @@ for i in range(len(filenames)):
     runScript += f'''arguments.append('{mainClassName}')
 arguments.append('--username Username')
 arguments.append('--gameDir "' + os.path.abspath('.') + '"')
+arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')
 arguments.append('--uuid 0')

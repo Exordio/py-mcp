@@ -69,7 +69,7 @@ def getAssets(vd):
             dirname = os.path.dirname(asset)
             if len(dirname) > 0:
                 dirname = f'/{dirname}'
-            assetDir = f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{dirname}'''
+            assetDir = f'''{constants['package']['outputPath']}/resources{dirname}'''
             assetFileSave = os.path.basename(asset)
         assetDownloadUrl = f'''{constants['api']['assetsDownloadBaseUrl']}/{assetHashSlice}/{assetHash}'''
 
