@@ -20,4 +20,4 @@ def selectVersionType(vi):
             versions.append(i)
             versionsNumbs.append(i['id'])
 
-    return versions, versionsNumbs
+    return versions, versionsNumbs, versionType

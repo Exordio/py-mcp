@@ -8,6 +8,7 @@ from functions.getters.getLibraries import getLibraries
 from functions.getters.getNatives import getNatives
 from functions.selectors.selectVersion import selectVersion
 from functions.selectors.selectVersionType import selectVersionType
+from functions.meta.createAutorunScript import createAutorunScript
 from datetime import datetime
 
 if __name__ == '__main__':
@@ -16,12 +17,12 @@ if __name__ == '__main__':
     # Получаем манифест всех версий minecraft
     versionsInfo = getVersionManifest()
     # Выбираем тип выпуска minecraft
-    versions, versionsNumbs = selectVersionType(versionsInfo)
+    versions, versionsNumbs, versionType = selectVersionType(versionsInfo)
     # Выбираем номер версии, и получаем versionData
     versionData = getVersionData(selectVersion(versions, versionsNumbs))
     # Создание всех нужных директорий и поддиректорий
     createClientFolders(versionData)
-    # Загрузка клиента
+    # # Загрузка клиента
     getClient(versionData)
     # Загрузка сервера
     getServer(versionData)
@@ -31,7 +32,10 @@ if __name__ == '__main__':
     getNatives(versionData)
     # Загрузка ассетов
     getAssets(versionData)
+    # Создание скрипта запуска
+    createAutorunScript(versionData['assetIndex']['id'], versionData['id'], versionType)
 
     print(f'\n| {datetime.now().time()} Сборка клиента завершена! |')
 
-    # TODO сделать автоматическую генерацию скрипта запуска
+
+
