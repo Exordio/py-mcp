@@ -2,6 +2,7 @@ import os
 
 from config.config import constants
 
+
 def createClientFolders(vd):
     # Создаём папку для вывода скрипта
     try:
