@@ -25,11 +25,6 @@ def createClientFolders(vd):
     # Создаем папки для ассетов
     try:
         os.makedirs(
-            f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes''')
-    except FileExistsError:
-        pass
-    try:
-        os.makedirs(
-            f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/objects''')
+            f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}/indexes''')
     except FileExistsError:
         pass
