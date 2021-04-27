@@ -29,9 +29,9 @@ _, _, filenames = next(os.walk('libraries'))
 for i in range(len(filenames)):
     filenames[i] = f'libraries/{filenames[i]}'
     '''
-    autoRun += f'''classPathFiles = '{separator}'.join(filenames)\n'''
-    autoRun += f'''arguments.append(f'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
-    autoRun += f'''arguments.append(f'{mainClassName}')
+    autoRun += f'''classPathFiles = '{separator}'.join(filenames)\n
+arguments.append(f'-cp client.jar{separator}''' + '''{classPathFiles}\')\n
+arguments.append(f'{mainClassName}')
 arguments.append('--username Username')
 arguments.append('--gameDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets{versionIndex}') + '"')
