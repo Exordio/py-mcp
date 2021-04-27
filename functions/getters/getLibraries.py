@@ -18,7 +18,7 @@ def getLibraries(vd):
                      continue
                 else:
                     librariesByVersionInfo.append(lib['downloads']['artifact'])
-    print(librariesByVersionInfo)
+    # print(librariesByVersionInfo)
     print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
 
     LBVIDownloadCounter = len(librariesByVersionInfo) - 1
