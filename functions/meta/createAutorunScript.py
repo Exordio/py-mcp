@@ -22,11 +22,11 @@ def createAutorunScript(versionIndex, assetIndex, versionType):
     shutil.rmtree('temp')
 
     print(f'|\n {datetime.now().time()} Создаем скрипт запуска |')
+
     runScript = '''import os
 arguments = []
-arguments.append('set APPDATA="' + os.path.abspath('data') + '";')
-arguments.append('export APPDATA="' + os.path.abspath('data') + '";')
-arguments.append('java')
+arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')}&&\'\'\')\n'''
+    runScript += '''arguments.append('java')
 arguments.append('-Duser.home="' + os.path.abspath('data') + '"')
 arguments.append('-Djava.library.path="' + os.path.abspath('natives') + '"')
 arguments.append('-XX:HeapDumpPath=ThisTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump')
