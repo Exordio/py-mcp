@@ -10,7 +10,7 @@ from config.config import constants, platform
 
 def getNatives(vd):
     nativesByVersionInfo = []
-    print(f'| {datetime.now().time()} Формирование списка загрузки нативов |')
+    print(f'\n| {datetime.now().time()} Формирование списка загрузки нативов |')
     for lib in vd['libraries']:
         if 'natives' in lib:
             if platform in lib['natives']:

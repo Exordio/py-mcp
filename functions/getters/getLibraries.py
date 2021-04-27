@@ -18,8 +18,6 @@ def getLibraries(vd):
                      continue
                 else:
                     librariesByVersionInfo.append(lib['downloads']['artifact'])
-
-    print(vd['libraries'])
     print(librariesByVersionInfo)
     print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
 
