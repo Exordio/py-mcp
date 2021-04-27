@@ -14,22 +14,10 @@ from functions.selectors.selectVersionType import selectVersionType
 from functions.meta.createAutorunScript import createAutorunScript, run
 from datetime import datetime
 import shutil
-import sys
 import os
 
-if __name__ == '__main__':
-    print('|  Exord minecraft client generator 0.1  |\n')
 
-    if os.path.exists(constants['package']['outputPath']) and autoDelete:
-        shutil.rmtree('output')
-    elif os.path.exists(constants['package']['outputPath']) and not autoDelete:
-        print(
-            "Директория с клиентом уже существует. Клиент будет запущен без скачивания (если включено в конфиге). Даём 3 секунды на подумать...")
-        time.sleep(3)
-        if autoRun:
-            run()
-            sys.exit(0)
-
+def build():
     # Получаем манифест всех версий minecraft
     versionsInfo = getVersionManifest()
     # Выбираем тип выпуска minecraft
@@ -52,3 +40,27 @@ if __name__ == '__main__':
     createAutorunScript(versionData['id'], versionData['assetIndex']['id'], versionType, magicImpotantMushrooms)
 
     print(f'\n| {datetime.now().time()} Сборка клиента завершена! |')
+
+
+def main():
+    print('|  Exord minecraft client generator 0.1  |\n')
+
+    if os.path.exists(constants['package']['outputPath']):
+        if autoDelete:
+            print('Удаление старого клиента... Секунда на шанс спасти дом...')
+            time.sleep(1)
+            print('Прощай, дом!')
+            shutil.rmtree('output')
+        else:
+            print(
+                "Директория с клиентом уже существует. Клиент будет запущен без скачивания (если включено в конфиге). Даём секунду на подумать..."
+            )
+            time.sleep(1)
+            if autoRun:
+                run()
+            return
+    build()
+
+
+if __name__ == '__main__':
+    main()
