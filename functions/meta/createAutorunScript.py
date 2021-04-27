@@ -1,5 +1,7 @@
-from config.config import platform
+from config.config import platform, autoRun
 from datetime import datetime
+
+import os
 
 separator = ';' if platform == 'windows' else ':'
 
@@ -39,3 +41,6 @@ print(f'{launch}')
 
     with open('output/start.py', 'w') as startScript:
         startScript.write(autoRun)
+
+    if autoRun:
+        os.system('venv/scripts/activate && python output/start.py')
