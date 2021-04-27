@@ -15,7 +15,7 @@ constants = {
         'assetsDownloadBaseUrl': 'http://resources.download.minecraft.net',
     },
     'package': {
-        'outputPath': './output',
+        'outputPath': f'./output{datetime.now().time()}',
         'tmpPath': './output/tmp',
         'librariesDir': 'libraries',
         'assetsDir': 'assets',
@@ -143,7 +143,6 @@ def getAssets(vd):
                     )
             ) as response:
                 content = await response.read()
-                # print(content)
                 print(path)
                 with open(path, 'wb') as file:
                     file.write(content)
@@ -233,8 +232,6 @@ if __name__ == '__main__':
             versionsNumbs.append(i['id'])
 
     versionData = getVersionData(selectVersion(versionsNumbs))
-
-    # print(versionData)
 
     createClientFolders(versionData)
 
