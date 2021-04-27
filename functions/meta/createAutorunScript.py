@@ -43,4 +43,11 @@ print(f'{launch}')
         startScript.write(autoRun)
 
     if autoRun:
-        os.system('venv/scripts/activate && python output/start.py')
+        if platform == 'windows':
+            cur_dir = os.path.abspath(".")
+            os.chdir(f'{cur_dir}/output')
+            os.system(f'\"{cur_dir}/venv/scripts/python\" start.py')
+        else:
+            cur_dir = os.path.abspath(".")
+            os.chdir(f'{cur_dir}/output')
+            os.system(f'\"{cur_dir}/venv/bin/python\" start.py')

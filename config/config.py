@@ -13,4 +13,4 @@ constants = {
 }
 
 platform = 'windows'
-autoRun = False
+autoRun = True
