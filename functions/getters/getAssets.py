@@ -55,8 +55,10 @@ def getAssets(vd):
 
     print(assets)
 
+    # Для версий до 1.6 вкличительно...
     very_important = 'READ_ME_I_AM_VERY_IMPORTANT' in assets or 'READ_ME_I_AM_VERY_IMPORTANT.txt' in assets
 
+    # Это для 1.6 версии, кто писал сборку клиента под лаунчер явно очень, очень много курил
     very_important_new = 'READ_ME_I_AM_VERY_IMPORTANT.txt' in assets
 
     for asset in assets:
@@ -83,3 +85,6 @@ def getAssets(vd):
     asyncio.run(run(assetDownloadLinks))
 
     print('\n| Загрузка ассетов завершена. |')
+
+    # Не спрашивайте...
+    return 'READ_ME_I_AM_VERY_IMPORTANT' in assets

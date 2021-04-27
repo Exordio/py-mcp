@@ -14,3 +14,4 @@ constants = {
 
 platform = 'windows'
 autoRun = True
+autoDelete = True
