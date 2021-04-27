@@ -55,7 +55,9 @@ def getAssets(vd):
 
     print(assets)
 
-    very_important = 'READ_ME_I_AM_VERY_IMPORTANT' in assets
+    very_important = 'READ_ME_I_AM_VERY_IMPORTANT' in assets or 'READ_ME_I_AM_VERY_IMPORTANT.txt' in assets
+
+    very_important_new = 'READ_ME_I_AM_VERY_IMPORTANT.txt' in assets
 
     for asset in assets:
         assetHash = assets[asset]['hash']
@@ -66,7 +68,10 @@ def getAssets(vd):
             dirname = os.path.dirname(asset)
             if len(dirname) > 0:
                 dirname = f'/{dirname}'
-            assetDir = f'''{constants['package']['outputPath']}/data/.minecraft/resources{dirname}'''
+            if very_important_new:
+                assetDir = f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{dirname}'''
+            else:
+                assetDir = f'''{constants['package']['outputPath']}/data/.minecraft/resources{dirname}'''
             assetFileSave = os.path.basename(asset)
         assetDownloadUrl = f'''{constants['api']['assetsDownloadBaseUrl']}/{assetHashSlice}/{assetHash}'''
 
