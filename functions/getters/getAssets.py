@@ -1,5 +1,6 @@
 import aiohttp
 import asyncio
+import json
 import ast
 import os
 
@@ -47,8 +48,12 @@ def getAssets(vd):
     with open(f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes/{vd['assetIndex']['id']}.json''', 'wb') as file:
         file.write(assetsResponse)
 
-    assets = ast.literal_eval(assetsResponse.decode('utf-8'))['objects']
-
+    print(assetsResponse)
+    # print((assetsResponse.decode('utf-8'))['objects'])
+    try:
+        assets = ast.literal_eval(assetsResponse.decode('utf-8'))['objects']
+    except ValueError:
+        assets = json.loads(assetsResponse.decode('utf-8'))['objects']
     assetDownloadLinks = {}
 
     print(assets)

@@ -19,11 +19,14 @@ def getNatives(vd):
                     nativesByVersionInfo.append(lib['downloads']['classifiers'][lib['natives'][platform]])
                 except KeyError:
                     try:
-                        nativesByVersionInfo.append(lib['downloads']['classifiers'][
-                                                        'natives-windows-64' if platform == 'windows' else 'natives-linux'])
+                        nativesByVersionInfo.append(lib['downloads']['classifiers']['natives-windows'])
                     except KeyError:
-                        nativesByVersionInfo.append(lib['downloads']['classifiers'][
-                                                        'natives-osx'])
+                        try:
+                            nativesByVersionInfo.append(lib['downloads']['classifiers'][
+                                                            'natives-windows-64' if platform == 'windows' else 'natives-linux'])
+                        except KeyError:
+                            nativesByVersionInfo.append(lib['downloads']['classifiers'][
+                                                            'natives-osx'])
     print(nativesByVersionInfo)
     print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
 
@@ -38,13 +41,15 @@ def getNatives(vd):
     print(f'\n| {datetime.now().time()} Начинаем распаковку нативов |\n')
     for native in nativesByVersionInfo:
         print(f'''| {datetime.now().time()} Распаковка {native['url'].split('/')[-1]} |''')
-        with ZipFile(
-                f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''',
-                'r') as zipObj:
-            zipObj.extractall(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
-
-        os.remove(
-            f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''')
+        try:
+            with ZipFile(
+                    f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''',
+                    'r') as zipObj:
+                zipObj.extractall(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
+            os.remove(
+                f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/{native['url'].split('/')[-1]}''')
+        except FileNotFoundError:
+            pass
 
     shutil.rmtree(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/META-INF''')
     print(f'\n| {datetime.now().time()} Распаковка нативов завершена |\n')

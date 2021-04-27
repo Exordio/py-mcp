@@ -1,12 +1,23 @@
 from config.config import platform, autoRun
 from datetime import datetime
+from zipfile import ZipFile
 
+import shutil
 import os
 
 separator = ';' if platform == 'windows' else ':'
 
 
 def createAutorunScript(versionIndex, assetIndex, versionType):
+    with ZipFile(f'''output/client.jar''', 'r') as zipObj:
+        zipObj.extractall(f'''temp''')
+
+    with open('temp/META-INF/MANIFEST.MF', 'r') as mainClassManifest:
+        for i in mainClassManifest.readlines():
+            if i.startswith('Main-Class:'):
+                mainClassName = i.strip().split(' ')[-1]
+    shutil.rmtree('temp')
+
     print(f'|\n {datetime.now().time()} Создаем скрипт запуска |')
     autoRun = '''import os
 arguments = []
@@ -20,7 +31,7 @@ for i in range(len(filenames)):
     '''
     autoRun += f'''classPathFiles = '{separator}'.join(filenames)\n'''
     autoRun += f'''arguments.append(f'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
-    autoRun += f'''arguments.append(f'net.minecraft.client.main.Main')
+    autoRun += f'''arguments.append(f'{mainClassName}')
 arguments.append('--username Username')
 arguments.append('--gameDir .')
 arguments.append('--assetsDir assets{versionIndex}')
