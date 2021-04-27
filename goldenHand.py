@@ -15,7 +15,7 @@ constants = {
         'assetsDownloadBaseUrl': 'http://resources.download.minecraft.net',
     },
     'package': {
-        'outputPath': f'''./output {str(datetime.now().strftime('%Y-%m-%d-%H-%M-%S'))}''',
+        'outputPath': './output',
         'tmpPath': './output/tmp',
         'librariesDir': 'libraries',
         'assetsDir': 'assets',
@@ -253,10 +253,3 @@ if __name__ == '__main__':
     getLibraries(versionData)
     getNatives(versionData)
     getAssets(versionData)
-
-
-
-
-
-
-
