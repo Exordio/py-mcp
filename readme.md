@@ -25,7 +25,6 @@ DEMO VIDEO : Maybe someday there will be, but now I'm too lazy to record a video
 ### Installation
 
 Requires [python3](https://www.python.org/downloads/) to run.
-Install the dependencies and devDependencies and start the websocket server.
 
 ### Before starting, you must specify in config, the launch platform
 
