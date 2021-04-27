@@ -6,3 +6,4 @@ output
 logs
 .idea
 test.json
+output*
