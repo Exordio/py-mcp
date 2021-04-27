@@ -30,3 +30,5 @@ if __name__ == '__main__':
     getAssets(versionData)
 
     print(f'| {datetime.now().time()} Сборка клиента завершена! |')
+
+    # TODO сделать автоматическую генерацию скрипта запуска
