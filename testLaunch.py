@@ -1,34 +1,33 @@
 # -*- coding: utf-8 -*-
 import os
-# java -jar client.jar --username Exord --gameDir . --assetsDir assets1.12.2 --assetIndex 1.12 --uuid hui --accessToken her --userType admin --versionType 1.12.2 -cp output\
 
 arguments = []
 
 arguments.append('java')
-arguments.append('-Djava.library.path=natives')
+arguments.append('-Djava.library.path=output/natives')
 arguments.append('-XX:HeapDumpPath=ThisTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump')
 
 classPath = []
 
-_, _, filenames = next(os.walk('libraries'))
+_, _, filenames = next(os.walk('output/libraries'))
 
 for i in range(len(filenames)):
-    filenames[i] = f'libraries/{filenames[i]}'
+    filenames[i] = f'output/libraries/{filenames[i]}'
 
 classSex = ';'.join(filenames)
 
-arguments.append(f'-cp client.jar;{classSex}')
+arguments.append(f'-cp output/client.jar;{classSex}')
 arguments.append(f'net.minecraft.client.main.Main')
 
 arguments.append('--username Exord')
-arguments.append('--gameDir .')
-arguments.append('--assetsDir assets1.12.2')
-arguments.append('--assetIndex 1.12')
+arguments.append('--gameDir output/')
+arguments.append('--assetsDir output/assets1.16.5')
+arguments.append('--assetIndex 1.16')
 arguments.append('--uuid hui')
 arguments.append('--accessToken her')
 arguments.append('--userType --mojang')
 arguments.append('--versionType --release')
-arguments.append('--version 1.12.2')
+arguments.append('--version 1.16.5')
 
 
 launchStr = f''' '''.join(arguments)

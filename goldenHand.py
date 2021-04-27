@@ -82,10 +82,12 @@ def getLibraries(vd):
 
         for rule in lib['rules']:
             if rule['action'] == 'allow':
-                # if 'os' in rule:
-                #     if rule['os']['name'] != 'osx':
-                librariesByVersionInfo.append(lib['downloads']['artifact'])
+                if 'os' in rule:
+                     continue
+                else:
+                    librariesByVersionInfo.append(lib['downloads']['artifact'])
 
+    print(vd['libraries'])
     print(librariesByVersionInfo)
     print(f'| {datetime.now().time()} Список сформирован, начинаем загрузку |\n')
 
