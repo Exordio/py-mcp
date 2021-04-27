@@ -33,8 +33,8 @@ for i in range(len(filenames)):
     autoRun += f'''arguments.append(f'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
     autoRun += f'''arguments.append(f'{mainClassName}')
 arguments.append('--username Username')
-arguments.append('--gameDir .')
-arguments.append('--assetsDir assets{versionIndex}')
+arguments.append('--gameDir "' + os.path.abspath('.') + '"')
+arguments.append('--assetsDir "' + os.path.abspath('assets{versionIndex}') + '"')
 arguments.append('--assetIndex {assetIndex}')
 arguments.append('--uuid 0')
 arguments.append('--accessToken 0')
