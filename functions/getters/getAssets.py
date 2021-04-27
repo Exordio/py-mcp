@@ -48,7 +48,7 @@ def getAssets(vd):
     with open(f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}{vd['id']}/indexes/{vd['assetIndex']['id']}.json''', 'wb') as file:
         file.write(assetsResponse)
 
-    print(assetsResponse)
+    # print(assetsResponse)
     # print((assetsResponse.decode('utf-8'))['objects'])
     try:
         assets = ast.literal_eval(assetsResponse.decode('utf-8'))['objects']

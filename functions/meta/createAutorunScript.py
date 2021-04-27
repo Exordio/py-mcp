@@ -28,11 +28,11 @@ classPath = []
 _, _, filenames = next(os.walk('libraries'))
 for i in range(len(filenames)):
     filenames[i] = f'libraries/{filenames[i]}'
-    '''
+'''
     autoRun += f'''classPathFiles = '{separator}'.join(filenames)\n'''
     autoRun += f'''arguments.append(f\'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
-    autoRun += f'''arguments.append(f'{mainClassName}')
-arguments.append('--username Username')
+    autoRun += f'''arguments.append(f'{mainClassName}\n')'''
+    autoRun += f'''arguments.append('--username Username')
 arguments.append('--gameDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets{versionIndex}') + '"')
 arguments.append('--assetIndex {assetIndex}')
@@ -50,6 +50,8 @@ print(f'{launch}')
 
 '''
     print(f'| {datetime.now().time()} Скрипт запуска создан! |')
+
+    print(autoRun)
 
     with open('output/start.py', 'w') as startScript:
         startScript.write(autoRun)
