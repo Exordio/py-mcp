@@ -21,17 +21,17 @@ if __name__ == '__main__':
     # Выбираем номер версии, и получаем versionData
     versionData = getVersionData(selectVersion(versions, versionsNumbs))
     # Создание всех нужных директорий и поддиректорий
-    # createClientFolders(versionData)
-    # # # Загрузка клиента
-    # getClient(versionData)
-    # # Загрузка сервера
-    # getServer(versionData)
-    # # Загрузка библиотек
-    # getLibraries(versionData)
-    # # Загрузка нативов
-    # getNatives(versionData)
-    # # Загрузка ассетов
-    # getAssets(versionData)
+    createClientFolders(versionData)
+    # # Загрузка клиента
+    getClient(versionData)
+    # Загрузка сервера
+    getServer(versionData)
+    # Загрузка библиотек
+    getLibraries(versionData)
+    # Загрузка нативов
+    getNatives(versionData)
+    # Загрузка ассетов
+    getAssets(versionData)
     # Создание скрипта запуска
     createAutorunScript(versionData['assetIndex']['id'], versionData['id'], versionType)
 
