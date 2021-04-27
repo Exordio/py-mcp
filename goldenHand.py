@@ -46,7 +46,3 @@ if __name__ == '__main__':
         createAutorunScript(versionData['id'], versionData['assetIndex']['id'], versionType)
 
         print(f'\n| {datetime.now().time()} Сборка клиента завершена! |')
-
-
-
-
