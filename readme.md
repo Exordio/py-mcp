@@ -11,12 +11,12 @@ DEMO VIDEO : Maybe someday there will be, but now I'm too lazy to record a video
   - Asynchronous loading of assets.
   - Convenient output of the script, the result of the work will be located in the output folder.
   - In addition to any version of the client, you also get any version of the server in the kit.
-  - Build on any platform, windows, linux, osx
+  - Build on any platform, windows, linux, osx.
  
  ### Todos
  
-  - Asynchronous loading of libraries
-  - Running all downloads parallel/asynchronously
+  - Asynchronous loading of libraries.
+  - Running all downloads parallel/asynchronously.
   - Automatic assembly of the client/server launch script, along with a ready-made client distribution. (Done! all versions.)
  
  ### Tech
