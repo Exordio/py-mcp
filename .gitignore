@@ -8,3 +8,5 @@ logs
 test.json
 output*
 *.pyc
+build
+dist
