@@ -44,7 +44,6 @@ arguments.append(f\'-cp client.jar{separator}''' +\
                  f'''
 arguments.append('{mainClassName}')\n''' + f'''
 arguments.append(\'\'\'{'--username username' if not {magicImpotantMushrooms} else 'username null'}\'\'\')
-arguments.append('--gameDir "' + os.path.abspath('.') + '"')
 arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')
