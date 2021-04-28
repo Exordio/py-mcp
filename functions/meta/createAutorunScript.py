@@ -21,7 +21,7 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
         mainClassName = 'net.minecraft.client.main.Main'
     shutil.rmtree('temp')
 
-    print(f'|\n {datetime.now().time()} Создаем скрипт запуска |')
+    print(f'\n| {datetime.now().time()} Создаем скрипт запуска |')
 
     runScript = '''import os
 arguments = []
@@ -56,7 +56,7 @@ launch = os.system(launchStr)
 print(f'{launch}')
 
 '''
-    print(f'| {datetime.now().time()} Скрипт запуска создан! |')
+    print(f'| {datetime.now().time()} Скрипт запуска создан! |\n')
 
     with open(f"{constants['package']['outputPath']}/start.py", 'w') as startScript:
         startScript.write(runScript)
