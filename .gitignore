@@ -10,3 +10,4 @@ output*
 *.pyc
 build
 dist
+*.spec
