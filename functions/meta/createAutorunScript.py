@@ -25,7 +25,7 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
 
     runScript = '''import os
 arguments = []
-arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')}&&\'\'\')\n'''
+arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')} &&\'\'\')\n'''
     runScript += '''arguments.append('java')
 arguments.append('-Duser.home="' + os.path.abspath('data') + '"')
 arguments.append('-Djava.library.path="' + os.path.abspath('natives') + '"')
