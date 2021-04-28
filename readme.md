@@ -41,4 +41,4 @@ $ pip install -r requirements.txt
 $ python goldenHand.py
 ```
 
-#####After building the client, you can run it through start.py, where you can specify a different username. Or just take the actual working flags to run the version you need.
+##### After building the client, you can run it through start.py, where you can specify a different username. Or just take the actual working flags to run the version you need.
