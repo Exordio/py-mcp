@@ -17,16 +17,20 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
         for i in mainClassManifest.readlines():
             if i.startswith('Main-Class:'):
                 mainClassName = i.strip().split(' ')[-1]
-    if mainClassName == 'net.minecraft.client.Main':
-        mainClassName = 'net.minecraft.client.main.Main'
+    try:
+        if mainClassName == 'net.minecraft.client.Main':
+            mainClassName = 'net.minecraft.client.main.Main'
+    except UnboundLocalError:
+        print('| mainClassName не найден в META-INF манифесте, скорее всего старая версия. Пробуем древний mainClass |')
+        mainClassName = 'net.minecraft.launchwrapper.Launch'
     shutil.rmtree('temp')
 
-    print(f'|\n {datetime.now().time()} Создаем скрипт запуска |')
+    print(f'\n| {datetime.now().time()} Создаем скрипт запуска |')
 
     runScript = '''import os
 arguments = []
-arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')}&&\'\'\')\n'''
-    runScript += '''arguments.append('java')
+arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')}&&\'\'\')\n
+arguments.append('java')
 arguments.append('-Duser.home="' + os.path.abspath('data') + '"')
 arguments.append('-Djava.library.path="' + os.path.abspath('natives') + '"')
 arguments.append('-XX:HeapDumpPath=ThisTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump')
@@ -35,11 +39,13 @@ _, _, filenames = next(os.walk('libraries'))
 for i in range(len(filenames)):
     filenames[i] = f'libraries/{filenames[i]}'
 '''
-    runScript += f'''classPathFiles = '{separator}'.join(filenames)\n'''
-    runScript += f'''arguments.append(f\'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
-    runScript += f'''arguments.append('{mainClassName}')
-arguments.append('{'--username username' if not magicImpotantMushrooms else 'username null'}')\n'''
-    runScript += '''arguments.append('--gameDir "' + os.path.abspath('.') + '"')
+    runScript += f'''classPathFiles = '{separator}'.join(filenames)
+arguments.append(f\'-cp client.jar{separator}''' +\
+                 '''{classPathFiles}\')\n''' +\
+                 f'''
+arguments.append('{mainClassName}')\n''' + f'''
+arguments.append(\'\'\'{'--username username' if not {magicImpotantMushrooms} else 'username null'}\'\'\')
+arguments.append('--gameDir "' + os.path.abspath('.') + '"')
 arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')
@@ -56,7 +62,7 @@ launch = os.system(launchStr)
 print(f'{launch}')
 
 '''
-    print(f'| {datetime.now().time()} Скрипт запуска создан! |')
+    print(f'| {datetime.now().time()} Скрипт запуска создан! |\n')
 
     with open(f"{constants['package']['outputPath']}/start.py", 'w') as startScript:
         startScript.write(runScript)
