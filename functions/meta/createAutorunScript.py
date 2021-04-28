@@ -25,8 +25,8 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
 
     runScript = '''import os
 arguments = []
-arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')} &&\'\'\')\n'''
-    runScript += '''arguments.append('java')
+arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')}&&\'\'\')\n
+arguments.append('java')
 arguments.append('-Duser.home="' + os.path.abspath('data') + '"')
 arguments.append('-Djava.library.path="' + os.path.abspath('natives') + '"')
 arguments.append('-XX:HeapDumpPath=ThisTricksIntelDriversForPerformance_javaw.exe_minecraft.exe.heapdump')
@@ -35,11 +35,13 @@ _, _, filenames = next(os.walk('libraries'))
 for i in range(len(filenames)):
     filenames[i] = f'libraries/{filenames[i]}'
 '''
-    runScript += f'''classPathFiles = '{separator}'.join(filenames)\n'''
-    runScript += f'''arguments.append(f\'-cp client.jar{separator}''' + '''{classPathFiles}\')\n'''
-    runScript += f'''arguments.append('{mainClassName}')
-arguments.append('{'--username username' if not magicImpotantMushrooms else 'username null'}')\n'''
-    runScript += f'''arguments.append('--gameDir "' + os.path.abspath('.') + '"')
+    runScript += f'''classPathFiles = '{separator}'.join(filenames)
+arguments.append(f\'-cp client.jar{separator}''' +\
+                 '''{classPathFiles}\')\n''' +\
+                 f'''
+arguments.append('{mainClassName}')\n''' + f'''
+arguments.append(\'\'\'{'--username username' if not {magicImpotantMushrooms} else 'username null'}\'\'\')
+arguments.append('--gameDir "' + os.path.abspath('.') + '"')
 arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')
