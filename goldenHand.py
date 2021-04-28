@@ -20,6 +20,7 @@ import os
 def build():
     # Получаем манифест всех версий minecraft.
     versionsInfo = getVersionManifest()
+    print(versionsInfo)
     # Выбираем тип выпуска minecraft.
     versions, versionsNumbs, versionType = selectVersionType(versionsInfo)
     # Выбираем номер версии, и получаем versionData.

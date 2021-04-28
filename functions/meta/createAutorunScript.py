@@ -10,20 +10,29 @@ separator = ';' if platform == 'windows' else ':'
 
 
 def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMushrooms):
-    with ZipFile(f'''{constants['package']['outputPath']}/client.jar''', 'r') as zipObj:
-        zipObj.extractall(f'''temp''')
-
-    with open('temp/META-INF/MANIFEST.MF', 'r') as mainClassManifest:
-        for i in mainClassManifest.readlines():
-            if i.startswith('Main-Class:'):
-                mainClassName = i.strip().split(' ')[-1]
     try:
-        if mainClassName == 'net.minecraft.client.Main':
-            mainClassName = 'net.minecraft.client.main.Main'
-    except UnboundLocalError:
-        print('| mainClassName не найден в META-INF манифесте, скорее всего старая версия. Пробуем древний mainClass |')
-        mainClassName = 'net.minecraft.launchwrapper.Launch'
-    shutil.rmtree('temp')
+        with ZipFile(f'''{constants['package']['outputPath']}/client.jar''', 'r') as zipObj:
+            zipObj.extractall(f'''temp''')
+
+        with open('temp/META-INF/MANIFEST.MF', 'r') as mainClassManifest:
+            for i in mainClassManifest.readlines():
+                if i.startswith('Main-Class:'):
+                    mainClassName = i.strip().split(' ')[-1]
+
+        try:
+            if mainClassName == 'net.minecraft.client.Main':
+                mainClassName = 'net.minecraft.client.main.Main'
+        except UnboundLocalError:
+            print(
+                '| mainClassName не найден в META-INF манифесте, скорее всего старая версия. Пробуем древний mainClass |')
+            mainClassName = 'net.minecraft.launchwrapper.Launch'
+        shutil.rmtree('temp')
+
+    except FileNotFoundError:
+        print('| Манифест версий не найден, скорее всего попытка запустить крайне древнюю версию alpha |')
+        mainClassName = 'com.mojang.rubydung.RubyDung'
+
+
 
     print(f'\n| {datetime.now().time()} Создаем скрипт запуска |')
 
