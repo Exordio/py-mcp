@@ -18,6 +18,7 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
             for i in mainClassManifest.readlines():
                 if i.startswith('Main-Class:'):
                     mainClassName = i.strip().split(' ')[-1]
+                    break
 
         try:
             if mainClassName == 'net.minecraft.client.Main':
