@@ -26,7 +26,10 @@ DEMO VIDEO : Maybe someday there will be, but now I'm too lazy to record a video
 
 Requires [python3](https://www.python.org/downloads/) to run.
 
-### Before starting, you must specify in config, the launch platform
+### Before starting, you must specify in config, the launch platform.
+##### And you can also choose whether to delete the folder every time? when reassembling a client. + Autolaunch
+
+
 
 
 ```sh
@@ -38,3 +41,4 @@ $ pip install -r requirements.txt
 $ python goldenHand.py
 ```
 
+#####After building the client, you can run it through start.py, where you can specify a different username. Or just take the actual working flags to run the version you need.
