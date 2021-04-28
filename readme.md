@@ -17,7 +17,7 @@ DEMO VIDEO : Maybe someday there will be, but now I'm too lazy to record a video
  
   - Asynchronous loading of libraries
   - Running all downloads parallel/asynchronously
-  - Automatic assembly of the client/server launch script, along with a ready-made client distribution.
+  - Automatic assembly of the client/server launch script, along with a ready-made client distribution. (Done! all versions.)
  
  ### Tech
 * Python3
