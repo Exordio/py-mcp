@@ -17,8 +17,14 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
         for i in mainClassManifest.readlines():
             if i.startswith('Main-Class:'):
                 mainClassName = i.strip().split(' ')[-1]
-    if mainClassName == 'net.minecraft.client.Main':
-        mainClassName = 'net.minecraft.client.main.Main'
+    try:
+        if mainClassName == 'net.minecraft.client.Main':
+            mainClassName = 'net.minecraft.client.main.Main'
+    except UnboundLocalError:
+        print('| mainClassName не найден в META-INF |')
+        # TODO сделать обрабутку версий < 1.2.5 На данный момент версии ниже не хотят запускаться,
+        # TODO По причине что указывается не верный main class.
+        # mainClassName = 'net.minecraft.client'
     shutil.rmtree('temp')
 
     print(f'\n| {datetime.now().time()} Создаем скрипт запуска |')
