@@ -37,13 +37,12 @@ classPath = []
 _, _, filenames = next(os.walk('libraries'))
 for i in range(len(filenames)):
     filenames[i] = f'libraries/{filenames[i]}'
-'''
-    runScript += f'''classPathFiles = '{separator}'.join(filenames)
+''' + f'''classPathFiles = '{separator}'.join(filenames)
 arguments.append(f\'-cp client.jar{separator}''' +\
                  '''{classPathFiles}\')\n''' +\
                  f'''
 arguments.append('{mainClassName}')\n''' + f'''
-arguments.append(\'\'\'{'--username username' if not {magicImpotantMushrooms} else 'username null'}\'\'\')
+arguments.append(\'\'\'{'--username player' if not magicImpotantMushrooms else 'player null'}\'\'\')
 arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')
@@ -52,8 +51,7 @@ arguments.append('--accessToken 0')
 arguments.append('--userType --mojang')
 arguments.append('--versionType --{versionType}')
 arguments.append('--version {versionIndex}')
-'''
-    runScript += '''arguments.append('--userProperties {}')
+''' + '''arguments.append('--userProperties {}')
 launchStr = f\'\'\' \'\'\'.join(arguments)
 print(launchStr)
 launch = os.system(launchStr)
