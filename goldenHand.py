@@ -45,7 +45,7 @@ def build():
 
 
 def main():
-    print('|  Python minecraft client generator 0.1  |\n')
+    print('|  Python minecraft client generator 1.0  |\n')
 
     if os.path.exists(constants['package']['outputPath']):
         if autoDelete:
