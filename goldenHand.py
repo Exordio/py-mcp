@@ -43,12 +43,12 @@ def build():
 
 
 def main():
-    print('|  Exord minecraft client generator 0.1  |\n')
+    print('|  Python minecraft client generator 0.1  |\n')
 
     if os.path.exists(constants['package']['outputPath']):
         if autoDelete:
-            print('Удаление старого клиента... Секунда на шанс спасти дом...')
-            time.sleep(1)
+            print('Удаление старого клиента... Три секунды на спасение дома...')
+            time.sleep(3)
             print('Прощай, дом!')
             shutil.rmtree('output')
         else:
