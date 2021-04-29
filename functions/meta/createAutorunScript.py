@@ -30,7 +30,8 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImportantMus
                 mainClassName = 'net.minecraft.client.main.Main'
         except UnboundLocalError:
             print(
-                '| mainClassName was not found in the META-INF manifest, most likely an old version. Trying the ancient mainClass |')
+                '| mainClassName was not found in the META-INF manifest, most likely an old version.'
+                ' Trying the ancient mainClass |')
             mainClassName = 'net.minecraft.launchwrapper.Launch'
         shutil.rmtree('temp')
 
