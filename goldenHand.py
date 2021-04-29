@@ -14,7 +14,7 @@ def main():
         if autoDelete:
             print('Removing an old client... Three seconds to save the house...')
             time.sleep(3)
-            print('Прощай, дом!')
+            print('Goodbye home!')
             shutil.rmtree('output')
         else:
             print(
