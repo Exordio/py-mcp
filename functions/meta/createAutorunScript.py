@@ -30,13 +30,15 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImportantMus
                 mainClassName = 'net.minecraft.client.main.Main'
         except UnboundLocalError:
             print(
-                '| mainClassName was not found in the META-INF manifest, most likely an old version.'
+                f'| {datetime.now().time()} mainClassName was not found in the META-INF manifest,'
+                f' most likely an old version.'
                 ' Trying the ancient mainClass |')
             mainClassName = 'net.minecraft.launchwrapper.Launch'
         shutil.rmtree('temp')
 
     except FileNotFoundError:
-        print('| Version manifesto not found, most likely an attempt to run an extremely ancient version of alpha |')
+        print(f'| {datetime.now().time()} Version manifesto not found,'
+              f' most likely an attempt to run an extremely ancient version of alpha |')
         mainClassName = 'com.mojang.rubydung.RubyDung'
 
     print(f'\n| {datetime.now().time()} Create a startup script |')
