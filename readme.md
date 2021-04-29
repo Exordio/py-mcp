@@ -3,7 +3,7 @@
 Python minecraft client packager - is universal generator of clients, any version of minecraft.
 The script is extremely lightweight and works very fast, especially at the stage of loading assets.
 
-DEMO VIDEO : Maybe someday there will be, but now I'm too lazy to record a video.
+DEMO VIDEO : https://www.youtube.com/watch?v=UgpErpgvMsE
 
 # Features!
 
