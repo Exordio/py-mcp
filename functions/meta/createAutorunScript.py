@@ -66,7 +66,7 @@ launch = os.system(launchStr)
 print(f'{launch}')
 
 '''
-    print(f'| {datetime.now().time()} Скрипт запуска создан! |\n')
+    print(f'| {datetime.now().time()} The startup script has been created! |\n')
 
     with open(f"{constants['package']['outputPath']}/start.py", 'w') as startScript:
         startScript.write(runScript)
