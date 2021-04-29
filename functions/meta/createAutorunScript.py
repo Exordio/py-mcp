@@ -1,4 +1,4 @@
-from config.config import platform, autoRun
+from config.config import platform, autoRun, username
 from datetime import datetime
 from zipfile import ZipFile
 from config.config import constants
@@ -58,7 +58,7 @@ arguments.append(f\'-cp client.jar{separator}''' +\
                  '''{classPathFiles}\')\n''' +\
                  f'''
 arguments.append('{mainClassName}')\n''' + f'''
-arguments.append(\'\'\'{'--username player' if not magicImportantMushrooms else 'player null'}\'\'\')
+arguments.append(\'\'\'{f'--username {username}' if not magicImportantMushrooms else f'{username} null'}\'\'\')
 arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')

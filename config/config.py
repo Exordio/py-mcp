@@ -22,3 +22,5 @@ autoDelete = True
 # Sometimes a version doesn't have a server.
 # The way out is to either wrap it in try except, call the server download, or put False here.
 downloadServer = False
+# Launch username var
+username = 'Player'
