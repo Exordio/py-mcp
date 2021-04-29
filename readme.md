@@ -15,8 +15,8 @@ DEMO VIDEO : Maybe someday there will be, but now I'm too lazy to record a video
  
  ### Todos
  
-  - Asynchronous loading of libraries.
-  - Running all downloads parallel/asynchronously.
+  - Asynchronous loading of libraries. (Done!)
+  - Running all downloads parallel/asynchronously. (Done!)
   - Automatic assembly of the client/server launch script, along with a ready-made client distribution. (Done! all versions.)
  
  ### Tech
