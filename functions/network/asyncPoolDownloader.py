@@ -14,8 +14,8 @@ async def fetch(objMeta, session, path):
                 ssl=False,
                 timeout=aiohttp.ClientTimeout(
                     total=None,
-                    sock_connect=10,
-                    sock_read=10
+                    sock_connect=25,
+                    sock_read=25
                 )
         ) as response:
             content = await response.read()
