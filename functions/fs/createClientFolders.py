@@ -4,25 +4,25 @@ from config.config import constants
 
 
 def createClientFolders(vd):
-    # Создаём папку для вывода скрипта
+    # Create a folder for the output of the script
     try:
         os.mkdir(constants['package']['outputPath'])
     except FileExistsError:
         pass
 
-    # Создание папки для библиотек
+    # Create a folder for libraries
     try:
         os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['librariesDir']}''')
     except FileExistsError:
         pass
 
-    # Создание папок для нативов.
+    # Create a folder for native.
     try:
         os.mkdir(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}''')
     except FileExistsError:
         pass
 
-    # Создаем папки для ассетов
+    # Create a folder for assets
     try:
         os.makedirs(
             f'''{constants['package']['outputPath']}/{constants['package']['assetsDir']}/indexes''')

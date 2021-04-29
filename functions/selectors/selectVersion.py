@@ -1,16 +1,16 @@
 def selectVersion(v, vn):
     print(vn)
-    print('| Введите номер версии для сборки клиента |')
+    print('| Enter the version number for the client build |')
     finded = False
     while not finded:
         versionSelect = input(' : ')
         for i in vn:
             if i == versionSelect:
-                print('| Версия найдена |')
+                print('| Version found |')
                 finded = True
                 break
         if not finded:
-            print('| Версия не найдена, повторите ввод. |')
+            print('| No version found, please re-enter. |')
 
     for i in v:
         if i['id'] == versionSelect:

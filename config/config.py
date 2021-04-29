@@ -12,13 +12,13 @@ constants = {
     },
 }
 
-# Установка платфомы windows, linux, osx.
+# Installation of the windows, linux, osx platform.
 platform = 'windows'
-# Ставаить True, если нужно автоматически запустить клиент, после сборки.
+# Set to True if you want to automatically start the client after building.
 autoRun = True
-# Ставить True, если нужно перекачивать файлы каждый раз при запуске скрипта.
+# Set True if you need to download files every time the script is run.
 autoDelete = True
-# Ставить True, усли нужно скачать server.
-# Иногда у какой то версии нет сервера.
-# Выход - либо завернуть в try except, вызов закачки сервера, либо поставить тут False.
+# Set to True if you need to download server.
+# Sometimes a version doesn't have a server.
+# The way out is to either wrap it in try except, call the server download, or put False here.
 downloadServer = False

@@ -25,17 +25,15 @@ def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMush
                 mainClassName = 'net.minecraft.client.main.Main'
         except UnboundLocalError:
             print(
-                '| mainClassName не найден в META-INF манифесте, скорее всего старая версия. Пробуем древний mainClass |')
+                '| mainClassName was not found in the META-INF manifest, most likely an old version. Trying the ancient mainClass |')
             mainClassName = 'net.minecraft.launchwrapper.Launch'
         shutil.rmtree('temp')
 
     except FileNotFoundError:
-        print('| Манифест версий не найден, скорее всего попытка запустить крайне древнюю версию alpha |')
+        print('| Version manifesto not found, most likely an attempt to run an extremely ancient version of alpha |')
         mainClassName = 'com.mojang.rubydung.RubyDung'
 
-
-
-    print(f'\n| {datetime.now().time()} Создаем скрипт запуска |')
+    print(f'\n| {datetime.now().time()} Create a startup script |')
 
     runScript = '''import os
 arguments = []\n''' + ('''arguments.append(f\'\'\'set APPDATA={os.path.abspath('data')}&&\'\'\')\n''' if platform == 'windows' else '') +\
@@ -74,10 +72,10 @@ print(f'{launch}')
         startScript.write(runScript)
 
     if autoRun:
-        run()
+        runClient()
 
 
-def run():
+def runClient():
     cur_dir = os.path.abspath(".")
     os.chdir(f"{cur_dir}/{constants['package']['outputPath']}")
     if platform == 'windows':

@@ -1,7 +1,7 @@
 def selectVersionType(vi):
     versions = []
     versionsNumbs = []
-    print('| Выберете версионную ветку для загрузки (Указать можно цифрой) |')
+    print('| Select the versioned branch to download (You can specify it with a number) |')
     print('1. Release\n2. Snapshot\n3. old_beta\n4. old_alpha')
     typeSelected = False
     while not typeSelected:
@@ -19,7 +19,7 @@ def selectVersionType(vi):
             versionType = 'old_alpha'
             typeSelected = True
         else:
-            print('| Введено неверное значение, повторите ввод |')
+            print('| Invalid value entered, please re-enter |')
 
     for i in vi['versions']:
         if i['type'] == versionType:
