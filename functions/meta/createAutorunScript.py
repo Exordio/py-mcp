@@ -9,7 +9,7 @@ import os
 separator = ';' if platform == 'windows' else ':'
 
 
-def createAutorunScript(versionIndex, assetIndex, versionType, magicImpotantMushrooms):
+def createAutorunScript(versionIndex, assetIndex, versionType, magicImportantMushrooms):
     try:
         with ZipFile(f'''{constants['package']['outputPath']}/client.jar''', 'r') as zipObj:
             zipObj.extractall(f'''temp''')
@@ -50,7 +50,7 @@ arguments.append(f\'-cp client.jar{separator}''' +\
                  '''{classPathFiles}\')\n''' +\
                  f'''
 arguments.append('{mainClassName}')\n''' + f'''
-arguments.append(\'\'\'{'--username player' if not magicImpotantMushrooms else 'player null'}\'\'\')
+arguments.append(\'\'\'{'--username player' if not magicImportantMushrooms else 'player null'}\'\'\')
 arguments.append('--workDir "' + os.path.abspath('.') + '"')
 arguments.append('--assetsDir "' + os.path.abspath('assets') + '"')
 arguments.append('--assetIndex {assetIndex}')
