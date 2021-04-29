@@ -20,4 +20,5 @@ def build():
     shutil.rmtree(f'''{constants['package']['outputPath']}/{constants['package']['nativesDir']}/META-INF''')
     createAutorunScript(versionData['id'], versionData['assetIndex']['id'], versionType, magicImportantMushrooms)
 
-    print(f'\n| {datetime.now().time()} Complete! |')
+    print(f'\n| {datetime.now().time()} Complete! if you need to start the client later,'
+          f' there is start.py in the output folder |')
