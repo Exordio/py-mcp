@@ -8,7 +8,7 @@ import os
 
 
 def main():
-    print('|  Python minecraft client generator 1.0  |\n')
+    print('|  Python minecraft client generator 1.1  |\n')
 
     if os.path.exists(constants['package']['outputPath']):
         if autoDelete:
