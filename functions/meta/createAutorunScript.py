@@ -10,6 +10,10 @@ separator = ';' if platform == 'windows' else ':'
 
 
 def createAutorunScript(versionIndex, assetIndex, versionType, magicImportantMushrooms):
+
+    print(f'| {datetime.now().time()} Start building the autorun script ! |')
+    print('| Start unpacking client.jar, trying to find mainClass in it - to define the launch argument |')
+
     try:
         with ZipFile(f'''{constants['package']['outputPath']}/client.jar''', 'r') as zipObj:
             zipObj.extractall(f'''temp''')
