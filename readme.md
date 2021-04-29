@@ -8,7 +8,7 @@ DEMO VIDEO : https://www.youtube.com/watch?v=UgpErpgvMsE
 # Features!
 
   - Download any version of minecraft from early alpha, ending with the most recent versions of snapshots.
-  - Asynchronous loading of assets.
+  - Asynchronous loading all dist files.
   - Convenient output of the script, the result of the work will be located in the output folder.
   - In addition to any version of the client, you also get any version of the server in the kit.
   - Build on any platform, windows, linux, osx.
