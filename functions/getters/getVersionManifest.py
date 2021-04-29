@@ -4,7 +4,7 @@ from datetime import datetime
 
 
 def getVersionManifest():
-    print(f'| {datetime.now().time()} Получаем манифест версий |')
+    print(f'| {datetime.now().time()} Getting the version manifest |')
     versionManifest = request(constants['api']['versionsInfo'], json=True)
-    print(f'| {datetime.now().time()} Манифест получен |\n')
+    print(f'| {datetime.now().time()} Manifest received |\n')
     return versionManifest
